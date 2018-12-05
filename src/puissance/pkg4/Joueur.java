@@ -22,8 +22,9 @@ public class Joueur {
         TourJoueur = false;
     }
     
-    public Joueur(int i){
+    public Joueur(int i, boolean tour){
         NumeroJoueur = i; 
+        TourJoueur = tour;
     }
 
     /**

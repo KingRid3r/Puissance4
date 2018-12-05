@@ -13,23 +13,26 @@ public class IA extends Joueur {
     
     Jeton DernierJetonJoue;
     
-    public IA (int i){
-        NumeroJoueur = i;
+    public IA (int i, boolean tour){
+        super(i,tour);
         DernierJetonJoue = new Jeton(-1,-1,i);
     }
     
     public int MeilleurPlacer(){
         int Placement = 0;
         
-            // Premier tour de l'ia
-        if(DernierJetonJoue.getLigne() == -1 && DernierJetonJoue.getColonne() == -1){          
-            java.util.Random r = new java.util.Random();
+        java.util.Random r = new java.util.Random();
             Placement = r.nextInt(7);
-        }
-        else{
-            // TODO : Find the best place
-            
-        }
+        
+            // Premier tour de l'ia
+//        if(DernierJetonJoue.getLigne() == -1 && DernierJetonJoue.getColonne() == -1){          
+//            java.util.Random r = new java.util.Random();
+//            Placement = r.nextInt(7);
+//        }
+//        else{
+//            // TODO : Find the best place
+//            
+//        }
   
         return Placement;
     }

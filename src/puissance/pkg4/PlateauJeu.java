@@ -20,10 +20,11 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
 
     int SizeX =6;
     int SizeY =7;
+    
     Jeton [][] Plateau = new Jeton [SizeX][SizeY];
     
-    Joueur j1 = new Joueur(1);
-    IA ia = new IA(2);
+    Joueur j1 = new Joueur(1,true);
+    IA ia = new IA(2, false);
 
     Image plateauimg;
     /**
@@ -90,17 +91,23 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     // End of variables declaration//GEN-END:variables
 
     void PlacerJeton(int colonne){
-       for(int i=0; i<SizeX; i++){
-           if(Plateau[i][colonne].getJoueur() != 0){
-               Plateau[i][colonne].setJoueur(j1.getNumeroJoueur());
-               Plateau[i][colonne].ChangerCouleur(1);
-               System.out.println(i);
-               System.out.println(colonne);
-           }else if(i == SizeX-1 && Plateau[i][colonne].getJoueur() == 0){
-               Plateau[i][colonne].setJoueur(j1.getNumeroJoueur());
-               Plateau[i][colonne].ChangerCouleur(1);
-           }
-       }
+
+        int line =  SizeX-1;
+        while(Plateau[line][colonne].getJoueur() !=0){
+            line = line-1;
+        }
+        
+        if(j1.isTourJoueur()){
+            Plateau[line][colonne].setJoueur(j1.getNumeroJoueur());
+            Plateau[line][colonne].ChangerCouleur(j1.getNumeroJoueur());
+        }
+        else{
+            Plateau[line][colonne].setJoueur(ia.getNumeroJoueur());
+            Plateau[line][colonne].ChangerCouleur(ia.getNumeroJoueur());
+        }
+
+        
+        
     }
     
     void ChangerJoueur(){
@@ -122,16 +129,30 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     
         @Override
     public void mousePressed(MouseEvent e){
+        
+        
         int LargeurColone = 600/7;
         int x = (e.getX());
         for (int i = 0; i < 7; i++) {
             if(0 + LargeurColone*i < x && x < LargeurColone + LargeurColone*i){
                 this.PlacerJeton(i);
-                System.out.println("placement de jeton");
-                System.out.println(i);
-
+                this.ChangerJoueur();
+                
+                if(FinPartie(j1)){
+                    // TODO : POPUP fin du jeu
+                }
             }
         }
+        
+        
+        if(ia.isTourJoueur()){
+            this.PlacerJeton(ia.MeilleurPlacer());
+            this.ChangerJoueur();
+            if(FinPartie(ia)){
+                    // TODO : POPUP fin du jeu
+                }
+        }
+        
         repaint();
         
        
@@ -156,7 +177,7 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         int LargeurColone = 600/7;
         int x = (e.getX());
         for (int i = 0; i < 7; i++) {
-            if(0 + LargeurColone*i < x && x < LargeurColone + LargeurColone*i){
+            if(LargeurColone*i < x && x < LargeurColone + LargeurColone*i){
                 this.Plateau[0][i].ChangerCouleur(j1.getNumeroJoueur());
 
             }else{
