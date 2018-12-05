@@ -30,6 +30,13 @@ public class Fenetre extends javax.swing.JFrame {
         this.setVisible(true);
         
     }
+    
+    void NouvellePartie(){
+        System.out.println("nouvelle partie");
+        this.getContentPane().removeAll();
+        PlateauJeu plateau = new PlateauJeu();
+        this.getContentPane().add(plateau, BorderLayout.SOUTH);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +49,7 @@ public class Fenetre extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Puissance 4");
@@ -50,10 +57,16 @@ public class Fenetre extends javax.swing.JFrame {
         setResizable(false);
 
         jMenu1.setText("Jeu");
-        jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("à propos");
-        jMenuBar1.add(jMenu2);
+        jMenuItem1.setText("Nouvelle Partie");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem1MousePressed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -71,9 +84,13 @@ public class Fenetre extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
+        NouvellePartie();
+    }//GEN-LAST:event_jMenuItem1MousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
 }
