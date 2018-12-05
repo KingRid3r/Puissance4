@@ -9,16 +9,63 @@ package puissance.pkg4;
  *
  * @author utilisateur
  */
-public class Jeton {
-    private int x;
-    private int y;
-    private int joueur;
-    public Jeton(int _x, int _y, int _joueur){
-        this.x = _x;
-        this.y = _y;
-        this.joueur = _joueur;
+public class Jeton{
+    protected int Ligne;
+    protected int Colonne;
+    protected int Joueur;
+    
+    public Jeton(){
+        this.Ligne = 0;
+        this.Colonne = 0;
+        this.Joueur = 0;
     }
-    int getX(){return this.x;}
-    int getY(){return this.y;}
-    int getJoueur(){return this.joueur;}
+    
+    public Jeton(int _x, int _y, int _joueur){
+        this.Ligne = _x;
+        this.Colonne = _y;
+    }
+
+    /**
+     * @return the Ligne
+     */
+    public int getLigne() {
+        return Ligne;
+    }
+
+    /**
+     * @param Ligne the Ligne to set
+     */
+    public void setLigne(int Ligne) {
+        this.Ligne = Ligne;
+    }
+
+    /**
+     * @return the Colonne
+     */
+    public int getColonne() {
+        return Colonne;
+    }
+
+    /**
+     * @param Colonne the Colonne to set
+     */
+    public void setColonne(int Colonne) {
+        this.Colonne = Colonne;
+    }
+
+    /**
+     * @return the Joueur
+     */
+    public int getJoueur() {
+        return Joueur;
+    }
+
+    /**
+     * @param Joueur the Joueur to set
+     */
+    public void setJoueur(int Joueur) {
+        this.Joueur = Joueur;
+    }
+    
+
 }

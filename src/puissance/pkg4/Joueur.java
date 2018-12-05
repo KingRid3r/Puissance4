@@ -11,4 +11,40 @@ package puissance.pkg4;
  */
 public class Joueur {
     
+        
+    protected boolean JoueurReel;         // true = Joueur, false = IA
+    
+    
+    public Joueur(){
+        // Constructeur par défaut
+        JoueurReel = true;
+    }
+    
+    public Joueur(boolean joueur){
+        // Constructeur
+        JoueurReel = joueur;
+    }
+
+    /**
+     * @return the JoueurReel
+     */
+    public boolean isJoueurReel() {
+        return JoueurReel;
+    }
+
+    /**
+     * @param JoueurReel the JoueurReel to set
+     */
+    public void setJoueurReel(boolean JoueurReel) {
+        this.JoueurReel = JoueurReel;
+    }
+    
+        // Use for the AI
+    public int Jouer(){
+        
+        return 1;
+    };
+
 }
+
+
