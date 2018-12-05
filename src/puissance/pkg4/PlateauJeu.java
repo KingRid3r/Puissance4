@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package puissance.pkg4;
-import javax.swing.JButton;
+
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.BorderLayout;
 /**
  *
  * @author simon
@@ -27,7 +28,7 @@ public class PlateauJeu extends javax.swing.JPanel {
      * Creates new form PlateauJeu
      */
     public PlateauJeu() {
-                initComponents();        
+        initComponents();        
         this.plateau = new ImageIcon(getClass().getResource("images/plateau.png")).getImage();
         Dimension size = new Dimension(this.plateau.getWidth(null), this.plateau.getHeight(null));
         setPreferredSize(size);
@@ -36,15 +37,21 @@ public class PlateauJeu extends javax.swing.JPanel {
         setSize(size);
         setLayout(null);
         this.setVisible(true);
+
+       
+        int decalageLigne = 71 + 8;
+        int decalageColone = 71 + 8;
         
-            // Création des Cases
-        for (int i=0; i<SizeX; i++)
-	{
-            for (int j=0; j<SizeY ; j++)
-            {
-                Plateau [i] [j] = new Jeton(j,i,0);
+        for (int i = 0; i < SizeX; i++) {
+            for (int j = 0; j < SizeX; j++) {
+                Jeton curentJeton = Plateau[i][j] = new Jeton();
+                this.add(curentJeton);
+                curentJeton.setLocation(decalageLigne * i + i*5, decalageColone * j + j*5);
             }
-	}
+            
+        }
+        
+        
     }
 
     /**
@@ -80,7 +87,8 @@ public class PlateauJeu extends javax.swing.JPanel {
     void PlacerJeton(int colonne){
        for(int i=0; i<SizeY; i++){
            if(Plateau[i][colonne].getJoueur() != 0){
-               // TODO Update the color of the Jeton;
+               Plateau[i][colonne].ChangerCouleur(j1.getNumeroJoueur());
+               Plateau[i][colonne].setJoueur(j1.getNumeroJoueur());
            }
        }
     }

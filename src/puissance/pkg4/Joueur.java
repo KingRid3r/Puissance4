@@ -39,6 +39,20 @@ public class Joueur {
     public void setJoueurReel(boolean TourJoueur) {
         this.TourJoueur = TourJoueur;
     }
+
+    /**
+     * @return the NumeroJoueur
+     */
+    public int getNumeroJoueur() {
+        return NumeroJoueur;
+    }
+
+    /**
+     * @param NumeroJoueur the NumeroJoueur to set
+     */
+    public void setNumeroJoueur(int NumeroJoueur) {
+        this.NumeroJoueur = NumeroJoueur;
+    }
     
 
 }

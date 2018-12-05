@@ -5,16 +5,36 @@
  */
 package puissance.pkg4;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+
 /**
  *
  * @author utilisateur
  */
-public class Jeton{
+public class Jeton extends javax.swing.JPanel{
     protected int Ligne;
     protected int Colonne;
-    protected int Joueur;       // 1 = Joueur : 2 = IA
+    protected int Joueur;       // 1 = Joueur : 2 = IA : 0 = rien
+    
+    Image jetonimg = new ImageIcon(getClass().getResource("images/PionVide.png")).getImage();
+    public static final int Hauteur = -2;
+    public static final int Largeur = 0;
+
     
     public Jeton(){
+        initComponents();
+        Dimension size = new Dimension(71 + 8, 71 + 8);
+        setPreferredSize(size);
+        setMinimumSize(size);
+        setMaximumSize(size);
+        setSize(size);
+        setLayout(null);
+        this.setVisible(true);
+        
+        
         this.Ligne = 0;
         this.Colonne = 0;
         this.Joueur = 0;
@@ -66,6 +86,36 @@ public class Jeton{
      */
     public void setJoueur(int Joueur) {
         this.Joueur = Joueur;
+    }
+    
+    private void initComponents() {
+
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+    }
+    
+     public void ChangerCouleur(int joueur) {
+         if(joueur == 1){
+             this.jetonimg = new ImageIcon(getClass().getResource("images/PionRouge.png")).getImage();
+         }else if(joueur == 2){
+             this.jetonimg = new ImageIcon(getClass().getResource("images/PionJaune.png")).getImage();
+         }
+         
+     }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+      g.drawImage(this.jetonimg, 10 + this.Hauteur, 10 + this.Largeur, null);
     }
     
 

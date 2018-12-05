@@ -20,7 +20,7 @@ public class Fenetre extends javax.swing.JFrame {
     public Fenetre() {
         initComponents();
         PlateauJeu plateau = new PlateauJeu();
-        Dimension size = new Dimension(plateau.getWidth(), (plateau.getHeight()+50));
+        Dimension size = new Dimension(plateau.getWidth()+6, (plateau.getHeight()+50));
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);
@@ -47,6 +47,7 @@ public class Fenetre extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Puissance 4");
         setPreferredSize(new java.awt.Dimension(610, 700));
+        setResizable(false);
 
         jMenu1.setText("Jeu");
         jMenuBar1.add(jMenu1);
