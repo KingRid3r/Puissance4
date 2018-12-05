@@ -4,18 +4,31 @@
  * and open the template in the editor.
  */
 package puissance.pkg4;
-
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+import java.awt.Dimension;
+import java.awt.Graphics;
 /**
  *
  * @author simon
  */
 public class PlateauJeu extends javax.swing.JPanel {
-
+    Image plateau;
     /**
      * Creates new form PlateauJeu
      */
     public PlateauJeu() {
-        initComponents();
+        initComponents();        
+        this.plateau = new ImageIcon(getClass().getResource("images/plateau.png")).getImage();
+        Dimension size = new Dimension(this.plateau.getWidth(null), this.plateau.getHeight(null));
+        setPreferredSize(size);
+        setMinimumSize(size);
+        setMaximumSize(size);
+        setSize(size);
+        setLayout(null);
+        this.setVisible(true);
+        System.out.println(size);
     }
 
     /**
@@ -26,6 +39,8 @@ public class PlateauJeu extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -39,7 +54,10 @@ public class PlateauJeu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    @Override
+    public void paintComponent(Graphics g) {
+      g.drawImage(this.plateau, 0, 0, null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
