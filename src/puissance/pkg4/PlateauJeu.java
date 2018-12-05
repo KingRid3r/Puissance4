@@ -11,11 +11,28 @@ package puissance.pkg4;
  */
 public class PlateauJeu extends javax.swing.JPanel {
 
+    int SizeX =7;
+    int SizeY =7;
+    Jeton [][] Plateau = new Jeton [SizeX][SizeY];
+    
+    Joueur j1 = new Joueur(1);
+    IA ia = new IA(2);
+    
+    
     /**
      * Creates new form PlateauJeu
      */
     public PlateauJeu() {
         initComponents();
+        
+            // Création des Cases
+        for (int i=0; i<SizeX; i++)
+	{
+            for (int j=0; j<SizeY ; j++)
+            {
+                Plateau [i] [j] = new Jeton(j,i,0);
+            }
+	}
     }
 
     /**
@@ -42,4 +59,29 @@ public class PlateauJeu extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+    void PlacerJeton(int colonne){
+       for(int i=0; i<SizeY; i++){
+           if(Plateau[i][colonne].getJoueur() != 0){
+               // TODO Update the color of the Jeton;
+           }
+       }
+    }
+    
+    void ChangerJoueur(){
+        if(j1.isTourJoueur()){
+            j1.setJoueurReel(false);
+            ia.setJoueurReel(true);
+        }
+        else{
+            j1.setJoueurReel(true);
+            ia.setJoueurReel(false);
+        }
+    }
+    
+    boolean FinPartie(Joueur j){
+        
+        return false;
+    }
+
 }

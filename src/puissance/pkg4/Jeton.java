@@ -12,7 +12,7 @@ package puissance.pkg4;
 public class Jeton{
     protected int Ligne;
     protected int Colonne;
-    protected int Joueur;
+    protected int Joueur;       // 1 = Joueur : 2 = IA
     
     public Jeton(){
         this.Ligne = 0;
@@ -23,6 +23,7 @@ public class Jeton{
     public Jeton(int _x, int _y, int _joueur){
         this.Ligne = _x;
         this.Colonne = _y;
+        this.Joueur = _joueur;
     }
 
     /**
