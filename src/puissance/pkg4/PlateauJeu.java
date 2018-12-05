@@ -9,28 +9,32 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 /**
  *
  * @author simon
  */
-public class PlateauJeu extends javax.swing.JPanel {
+public class PlateauJeu extends javax.swing.JPanel implements MouseListener, MouseMotionListener{
 
-    int SizeX =7;
+    int SizeX =6;
     int SizeY =7;
     Jeton [][] Plateau = new Jeton [SizeX][SizeY];
     
     Joueur j1 = new Joueur(1);
     IA ia = new IA(2);
-    
-    Image plateau;
+
+    Image plateauimg;
     /**
      * Creates new form PlateauJeu
      */
     public PlateauJeu() {
+        addMouseListener(this);
+	addMouseMotionListener(this);
         initComponents();        
-        this.plateau = new ImageIcon(getClass().getResource("images/plateau.png")).getImage();
-        Dimension size = new Dimension(this.plateau.getWidth(null), this.plateau.getHeight(null));
+        this.plateauimg = new ImageIcon(getClass().getResource("images/plateau.png")).getImage();
+        Dimension size = new Dimension(this.plateauimg.getWidth(this), this.plateauimg.getHeight(this));
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);
@@ -42,9 +46,9 @@ public class PlateauJeu extends javax.swing.JPanel {
         int decalageLigne = 71 + 8;
         int decalageColone = 71 + 8;
         
-        for (int i = 0; i < SizeX; i++) {
+        for (int i = 0; i < SizeY; i++) {
             for (int j = 0; j < SizeX; j++) {
-                Jeton curentJeton = Plateau[i][j] = new Jeton();
+                Jeton curentJeton = Plateau[j][i] = new Jeton();
                 this.add(curentJeton);
                 curentJeton.setLocation(decalageLigne * i + i*5, decalageColone * j + j*5);
             }
@@ -79,16 +83,22 @@ public class PlateauJeu extends javax.swing.JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-      g.drawImage(this.plateau, 0, 0, null);
+      super.paintComponent(g);
+      g.drawImage(this.plateauimg, 0, 0, null);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
     void PlacerJeton(int colonne){
-       for(int i=0; i<SizeY; i++){
+       for(int i=0; i<SizeX; i++){
            if(Plateau[i][colonne].getJoueur() != 0){
-               Plateau[i][colonne].ChangerCouleur(j1.getNumeroJoueur());
                Plateau[i][colonne].setJoueur(j1.getNumeroJoueur());
+               Plateau[i][colonne].ChangerCouleur(1);
+               System.out.println(i);
+               System.out.println(colonne);
+           }else if(i == SizeX-1 && Plateau[i][colonne].getJoueur() == 0){
+               Plateau[i][colonne].setJoueur(j1.getNumeroJoueur());
+               Plateau[i][colonne].ChangerCouleur(1);
            }
        }
     }
@@ -107,6 +117,61 @@ public class PlateauJeu extends javax.swing.JPanel {
     boolean FinPartie(Joueur j){
         
         return false;
+    }
+    
+    
+        @Override
+    public void mousePressed(MouseEvent e){
+        int LargeurColone = 600/7;
+        int x = (e.getX());
+        for (int i = 0; i < 7; i++) {
+            if(0 + LargeurColone*i < x && x < LargeurColone + LargeurColone*i){
+                this.PlacerJeton(i);
+                System.out.println("placement de jeton");
+                System.out.println(i);
+
+            }
+        }
+        repaint();
+        
+       
+    }
+    
+    @Override
+    public void mouseReleased(MouseEvent e){}
+    
+    @Override
+    public void mouseClicked(MouseEvent e){
+
+    }
+    
+    @Override
+    public void mouseEntered(MouseEvent e){}
+    
+    @Override
+    public void mouseExited(MouseEvent e){}
+    
+    @Override
+    public void mouseMoved(MouseEvent e){
+        int LargeurColone = 600/7;
+        int x = (e.getX());
+        for (int i = 0; i < 7; i++) {
+            if(0 + LargeurColone*i < x && x < LargeurColone + LargeurColone*i){
+                this.Plateau[0][i].ChangerCouleur(j1.getNumeroJoueur());
+
+            }else{
+                if(this.Plateau[0][i].getJoueur() == 0){
+                    this.Plateau[0][i].ChangerCouleur(0);
+                }
+            }
+        }
+        repaint();
+        
+    }
+    
+    @Override
+    public void mouseDragged(MouseEvent e){
+        
     }
 
 }

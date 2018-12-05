@@ -20,7 +20,7 @@ public class Fenetre extends javax.swing.JFrame {
     public Fenetre() {
         initComponents();
         PlateauJeu plateau = new PlateauJeu();
-        Dimension size = new Dimension(plateau.getWidth()+6, (plateau.getHeight()+50));
+        Dimension size = new Dimension(plateau.getWidth()+5, (plateau.getHeight()+50));
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);

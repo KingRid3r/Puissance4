@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.event.*;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.awt.Image;
 public class Jeton extends javax.swing.JPanel{
     protected int Ligne;
     protected int Colonne;
-    protected int Joueur;       // 1 = Joueur : 2 = IA : 0 = rien
+    protected int Joueur = 0;       // 1 = Joueur : 2 = IA : 0 = rien
     
     Image jetonimg = new ImageIcon(getClass().getResource("images/PionVide.png")).getImage();
     public static final int Hauteur = -2;
@@ -37,7 +38,6 @@ public class Jeton extends javax.swing.JPanel{
         
         this.Ligne = 0;
         this.Colonne = 0;
-        this.Joueur = 0;
     }
     
     public Jeton(int _x, int _y, int _joueur){
@@ -107,10 +107,14 @@ public class Jeton extends javax.swing.JPanel{
      public void ChangerCouleur(int joueur) {
          if(joueur == 1){
              this.jetonimg = new ImageIcon(getClass().getResource("images/PionRouge.png")).getImage();
+             
          }else if(joueur == 2){
              this.jetonimg = new ImageIcon(getClass().getResource("images/PionJaune.png")).getImage();
+         }else if(joueur == 0){
+             this.jetonimg = new ImageIcon(getClass().getResource("images/PionVide.png")).getImage();
          }
-         
+
+        
      }
     
     @Override
@@ -118,5 +122,6 @@ public class Jeton extends javax.swing.JPanel{
       g.drawImage(this.jetonimg, 10 + this.Hauteur, 10 + this.Largeur, null);
     }
     
-
+   
+    
 }
