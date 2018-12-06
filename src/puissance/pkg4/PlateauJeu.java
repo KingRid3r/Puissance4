@@ -133,10 +133,24 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     }
     
     boolean CheckLigne(Jeton j){
-        boolean Fini = true;
+        boolean check = false;
+        int cptJetonJoueur = 0;
+        System.out.println("ligne" + j.getLigne());
+        System.out.println("colonne" + j.getColonne());
+        for (int i = 0; i < 6; i++) {
+            if(Plateau[j.getLigne()][i].getJoueur() == j.getJoueur()){
+                cptJetonJoueur = cptJetonJoueur +1;
+            }else{
+                cptJetonJoueur = 0;
+            }
+            
+            if(cptJetonJoueur >=4){
+                check = true;
+            }
+           
+        }
         
-        
-        return Fini;
+        return check;
     }
     
     boolean CheckColonne(Jeton j){
@@ -168,8 +182,8 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         
         boolean end = false;
         
-        end = end || CheckColonne(j);
-//        end = end || CheckLigne(j);
+        //end = end || CheckColonne(j);
+        end = end || CheckLigne(j);
 //        end = end || CheckDiagonal1(j);
 //        end = end || CheckDiagonal2(j);
         
