@@ -116,7 +116,10 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
             Plateau[line][colonne].setJoueur(ia.getNumeroJoueur());
             Plateau[line][colonne].ChangerCouleur(ia.getNumeroJoueur());
             ia.setDernierJeton(Plateau[line][colonne]);
-
+            if(FinPartie(Plateau[line][colonne])){
+                // TODO : POPUP fin du jeu
+                System.out.println("Fin de partie, victoire de ia");
+            }
         }
         
     }
@@ -142,14 +145,20 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     boolean CheckColonne(Jeton j){
         boolean check = false;
         int cpt = 0;
-       
-        System.out.println("Jeton d'origine : " + j.getLigne() + ";" + j.getColonne());
-        if(Plateau[j.getLigne()-1][j.getColonne()].getJoueur() == j.getJoueur() ){
-            System.out.println("Trouve");
+  
+        for(int i=0; i <= SizeX-1; i++){
+            if(Plateau[i][j.getColonne()].getJoueur() == j.getJoueur()){
+                cpt++;
+            }
+            else{
+                cpt =0;
+            }
+            
+            if(cpt == 4){
+                check = true;
+            }
         }
-        else{
-            System.out.println("Non Trouve");
-        }
+        
 
         return check;
     }
