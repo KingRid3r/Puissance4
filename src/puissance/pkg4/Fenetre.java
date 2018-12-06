@@ -13,7 +13,6 @@ import java.awt.Dimension;
  * @author simon
  */
 public class Fenetre extends javax.swing.JFrame {
-
     /**
      * Creates new form Fenetre
      */
@@ -28,7 +27,6 @@ public class Fenetre extends javax.swing.JFrame {
         setLayout(null);
         this.getContentPane().add(plateau, BorderLayout.SOUTH);
         this.setVisible(true);
-        
     }
     
     void NouvellePartie(){
