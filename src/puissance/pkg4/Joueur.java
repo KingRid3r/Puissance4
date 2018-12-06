@@ -14,6 +14,7 @@ public class Joueur {
         
     protected boolean TourJoueur; 
     protected int NumeroJoueur;
+    protected Jeton DernierJeton;
     
     
     
@@ -54,6 +55,21 @@ public class Joueur {
     public void setNumeroJoueur(int NumeroJoueur) {
         this.NumeroJoueur = NumeroJoueur;
     }
+
+    /**
+     * @return the DernierJeton
+     */
+    public Jeton getDernierJeton() {
+        return DernierJeton;
+    }
+
+    /**
+     * @param DernierJeton the DernierJeton to set
+     */
+    public void setDernierJeton(Jeton DernierJeton) {
+        this.DernierJeton = DernierJeton;
+    }
+    
     
 
 }

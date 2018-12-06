@@ -40,6 +40,11 @@ public class Jeton extends javax.swing.JPanel{
         this.Colonne = 0;
     }
     
+    public Jeton(int _x, int _y){
+        this.Ligne = _x;
+        this.Colonne = _y;
+    }
+    
     public Jeton(int _x, int _y, int _joueur){
         this.Ligne = _x;
         this.Colonne = _y;
