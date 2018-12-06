@@ -106,10 +106,10 @@ public class Jeton extends javax.swing.JPanel{
     
      public void ChangerCouleur(int joueur) {
          if(joueur == 1){
-             this.jetonimg = new ImageIcon(getClass().getResource("images/PionRouge.png")).getImage();
+             this.jetonimg = new ImageIcon(getClass().getResource("images/PionJaune.png")).getImage();
              
          }else if(joueur == 2){
-             this.jetonimg = new ImageIcon(getClass().getResource("images/PionJaune.png")).getImage();
+             this.jetonimg = new ImageIcon(getClass().getResource("images/PionRouge.png")).getImage();
          }else if(joueur == 0){
              this.jetonimg = new ImageIcon(getClass().getResource("images/PionVide.png")).getImage();
          }

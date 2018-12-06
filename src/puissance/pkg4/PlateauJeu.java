@@ -177,7 +177,7 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         int LargeurColone = 600/7;
         int x = (e.getX());
         for (int i = 0; i < 7; i++) {
-            if(LargeurColone*i < x && x < LargeurColone + LargeurColone*i){
+            if(LargeurColone*i < x && x < LargeurColone + LargeurColone*i && this.Plateau[0][i].getJoueur() ==0){
                 this.Plateau[0][i].ChangerCouleur(j1.getNumeroJoueur());
 
             }else{
