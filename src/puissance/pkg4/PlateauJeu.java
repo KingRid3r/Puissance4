@@ -191,7 +191,7 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         
         boolean end = false;
         
-        //end = end || CheckColonne(j);
+        end = end || CheckColonne(j);
         end = end || CheckLigne(j);
 //        end = end || CheckDiagonal1(j);
 //        end = end || CheckDiagonal2(j);
