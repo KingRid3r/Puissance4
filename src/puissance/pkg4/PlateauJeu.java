@@ -223,15 +223,36 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         return false;
     }
     
+    boolean CheckEqual(){
+        boolean check = false;
+        int cptJetonJoueur = 0;
+        for (int i = 0; i < SizeY; i++) {
+            if(Plateau[0][i].getJoueur() != 0){
+                cptJetonJoueur = cptJetonJoueur +1;
+            }
+        }
+        if(cptJetonJoueur >= 7 ){
+            check = true;
+        }
+        return check;
+    }
+    
     boolean FinPartie(Jeton j){
         
         boolean end = false;
         
         end = end || CheckColonne(j);
         end = end || CheckLigne(j);
+        
 //        end = end || CheckDiagonal1(j);
 //        end = end || CheckDiagonal2(j);
-        
+        if(CheckEqual()){
+            repaint();
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "Egalité !!", "Information", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Egalité !!");
+            regenPlateau();
+        }
         
         return end;
     }
