@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import javax.swing.JOptionPane;
 /**
  *
  * @author simon
@@ -92,36 +93,69 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    void PlacerJeton(int colonne){
+    void regenPlateau(){ 
+        int decalageLigne = 71 + 8;
+        int decalageColone = 71 + 8;
+        
+        for (int i = 0; i < SizeY; i++) {
+            for (int j = 0; j < SizeX; j++) {
+                Jeton curentJeton = Plateau[j][i];
+                curentJeton.setJoueur(0);
+                curentJeton.ChangerCouleur(0);
+                
+            }
+            
+        }
+        repaint();
+    }
+    
+    
+    
+    boolean PlacerJeton(int colonne){
 
         int line = SizeX-1;
+        boolean ColPleine = false;
+        while(Plateau[line][colonne].getJoueur() !=0 && ColPleine != true){
+            if(line-1 >= 0){
+                line = line - 1;
+            }else{
+                ColPleine = true;
+            }
+        }
+        if(ColPleine == false){
+        
+        
+            if(j1.isTourJoueur()){
+                Plateau[line][colonne].setJoueur(j1.getNumeroJoueur());
+                Plateau[line][colonne].ChangerCouleur(j1.getNumeroJoueur());
+                j1.setDernierJeton(Plateau[line][colonne]);
 
-        while(Plateau[line][colonne].getJoueur() !=0){
-            line = line-1;
-        }
-        
-//        System.out.println(Plateau[line][colonne]);
-        
-        if(j1.isTourJoueur()){
-            Plateau[line][colonne].setJoueur(j1.getNumeroJoueur());
-            Plateau[line][colonne].ChangerCouleur(j1.getNumeroJoueur());
-            j1.setDernierJeton(Plateau[line][colonne]);
-            
-            if(FinPartie(Plateau[line][colonne])){
-                // TODO : POPUP fin du jeu
-                System.out.println("Fin de partie, victoire de j1");
+                if(FinPartie(Plateau[line][colonne])){
+                    repaint();
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "JAVA triomphe toujours !!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println("Fin de partie, victoire de j1");
+                    regenPlateau();
+                }
             }
-        }
-        else{
-            Plateau[line][colonne].setJoueur(ia.getNumeroJoueur());
-            Plateau[line][colonne].ChangerCouleur(ia.getNumeroJoueur());
-            ia.setDernierJeton(Plateau[line][colonne]);
-            if(FinPartie(Plateau[line][colonne])){
-                // TODO : POPUP fin du jeu
-                System.out.println("Fin de partie, victoire de ia");
+            else{
+                Plateau[line][colonne].setJoueur(ia.getNumeroJoueur());
+                Plateau[line][colonne].ChangerCouleur(ia.getNumeroJoueur());
+                ia.setDernierJeton(Plateau[line][colonne]);
+                if(FinPartie(Plateau[line][colonne])){
+                    repaint();
+                    JOptionPane jop1 = new JOptionPane();
+                    jop1.showMessageDialog(null, "T'as vraiment perdu contre JavaScript ?!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    System.out.println("Fin de partie, victoire de ia");
+                    regenPlateau();
+                }
             }
+            this.ChangerJoueur();
+        }else{
+            return false;
         }
-        
+      
+        return true;
     }
     
     void ChangerJoueur(){
@@ -138,7 +172,8 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     boolean CheckLigne(Jeton j){
         boolean check = false;
         int cptJetonJoueur = 0;
-        for (int i = 0; i < 6; i++) {
+
+        for (int i = 0; i < SizeY; i++) {
             if(Plateau[j.getLigne()][i].getJoueur() == j.getJoueur()){
                 cptJetonJoueur = cptJetonJoueur +1;
             }else{
@@ -147,7 +182,6 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
             
             if(cptJetonJoueur >=4){
                 check = true;
-                System.out.println("VICTOIRE !!! Ligne");
             }
            
         }
@@ -169,7 +203,6 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
             
             if(cpt == 4){
                 check = true;
-                System.out.println("VICTOIRE !!! Colonne");
             }
         }
         
@@ -231,7 +264,7 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         }
 
         if(cpt > 4){
-            System.out.println("VICTOIRE !!! DIAGONALE1");
+
             check = true;
         }
         return check;
@@ -292,10 +325,23 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         }
 
         if(cpt > 4){
-            System.out.println("VICTOIRE !!! DIAGONALE2");
             check = true;
         }
         
+        return check;
+    }
+    
+    boolean CheckEqual(){
+        boolean check = false;
+        int cptJetonJoueur = 0;
+        for (int i = 0; i < SizeY; i++) {
+            if(Plateau[0][i].getJoueur() != 0){
+                cptJetonJoueur = cptJetonJoueur +1;
+            }
+        }
+        if(cptJetonJoueur >= 7 ){
+            check = true;
+        }
         return check;
     }
     
@@ -305,9 +351,15 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         
         end = end || CheckColonne(j);
         end = end || CheckLigne(j);
+        
         end = end || CheckDiagonal1(j);
         end = end || CheckDiagonal2(j);
-        
+        if(CheckEqual()){
+            repaint();
+            JOptionPane jop1 = new JOptionPane();
+            jop1.showMessageDialog(null, "C'est un match nul !", "Information", JOptionPane.INFORMATION_MESSAGE);
+            regenPlateau();
+        }
         
         return end;
     }
@@ -320,21 +372,21 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         int x = (e.getX());
         for (int i = 0; i < 7; i++) {
             if(0 + LargeurColone*i < x && x < LargeurColone + LargeurColone*i){
-                this.PlacerJeton(i);
-                this.ChangerJoueur();
+                this.PlacerJeton(i);  
                 
             }
         }
         
         
         if(ia.isTourJoueur()){
-            this.PlacerJeton(ia.MeilleurPlacer());
-            this.ChangerJoueur();
+            boolean result = false;
+            while(result == false){
+                result = this.PlacerJeton(ia.MeilleurPlacer());
+
+            }
+            
         }
-        
         repaint();
-        
-       
     }
     
     @Override
