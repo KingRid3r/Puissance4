@@ -138,8 +138,6 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     boolean CheckLigne(Jeton j){
         boolean check = false;
         int cptJetonJoueur = 0;
-        System.out.println("ligne" + j.getLigne());
-        System.out.println("colonne" + j.getColonne());
         for (int i = 0; i < 6; i++) {
             if(Plateau[j.getLigne()][i].getJoueur() == j.getJoueur()){
                 cptJetonJoueur = cptJetonJoueur +1;
@@ -149,6 +147,7 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
             
             if(cptJetonJoueur >=4){
                 check = true;
+                System.out.println("VICTOIRE !!! Ligne");
             }
            
         }
@@ -170,6 +169,7 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
             
             if(cpt == 4){
                 check = true;
+                System.out.println("VICTOIRE !!! Colonne");
             }
         }
         
@@ -178,13 +178,125 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
     }
     
     boolean CheckDiagonal1(Jeton j){
+        boolean check = false;
+        boolean TrouverExtremitehaut = false;
+        boolean TrouverExtremitebas = false;
+        int cpt = 0;
+        Jeton nextJeton = new Jeton(j);
         
-        return false;
+        
+            //TEST
+        // nextJeton.getColonne() >= SizeY-1 ---> Bordure droite
+        // nextJeton.getLigne() <= 0 ---> Bordure HAUT
+        // nextJeton.getLigne() >= SizeX-1 ---> BORDURE BAS
+        // nextJeton.getColonne() <= 0 ---> BORDURE GAUCHE
+        
+        while(TrouverExtremitehaut == false){
+            if(Plateau[nextJeton.getLigne()][nextJeton.getColonne()].getJoueur() == j.getJoueur()){ // jeton actuel        
+                if(nextJeton.getLigne() <= 0 || nextJeton.getColonne() <= 0){
+                    TrouverExtremitehaut = true;
+                    nextJeton.setLigne(j.getLigne());
+                    nextJeton.setColonne(j.getColonne());
+                }
+                else{
+                    nextJeton.setLigne(nextJeton.getLigne()-1);
+                    nextJeton.setColonne(nextJeton.getColonne()-1);
+                }
+                cpt++;
+            }
+            else{
+                TrouverExtremitehaut = true;
+                nextJeton.setLigne(j.getLigne());
+                nextJeton.setColonne(j.getColonne());
+            }
+        }
+        
+        
+         while(TrouverExtremitebas == false){
+            if(Plateau[nextJeton.getLigne()][nextJeton.getColonne()].getJoueur() == j.getJoueur()){ // jeton actuel        
+                if(nextJeton.getLigne() >= SizeX-1 || nextJeton.getColonne() >= SizeY-1){
+                    TrouverExtremitebas = true;
+                }
+                else{
+                    nextJeton.setLigne(nextJeton.getLigne()+1);
+                    nextJeton.setColonne(nextJeton.getColonne()+1);
+                }
+                cpt++;
+            }
+            else{
+                TrouverExtremitebas = true;
+                nextJeton.setLigne(j.getLigne());
+                nextJeton.setColonne(j.getColonne());
+            }
+        }
+
+        if(cpt > 4){
+            System.out.println("VICTOIRE !!! DIAGONALE1");
+            check = true;
+        }
+        return check;
     }
     
     boolean CheckDiagonal2(Jeton j){
+        boolean check = false;
+        boolean TrouverExtremitehaut = false;
+        boolean TrouverExtremitebas = false;
+        int cpt = 0;
+        Jeton nextJeton = new Jeton(j);
         
-        return false;
+        
+            //TEST
+        // nextJeton.getColonne() >= SizeY-1 ---> Bordure droite
+        // nextJeton.getLigne() <= 0 ---> Bordure HAUT
+        // nextJeton.getLigne() >= SizeX-1 ---> BORDURE BAS
+        // nextJeton.getColonne() <= 0 ---> BORDURE GAUCHE
+        
+        while(TrouverExtremitehaut == false){
+            if(Plateau[nextJeton.getLigne()][nextJeton.getColonne()].getJoueur() == j.getJoueur()){ // jeton actuel        
+                if(nextJeton.getLigne() <= 0 || nextJeton.getColonne() >= SizeY-1){
+
+                    TrouverExtremitehaut = true;
+                    nextJeton.setLigne(j.getLigne());
+                    nextJeton.setColonne(j.getColonne());
+                }
+                else{
+                    nextJeton.setLigne(nextJeton.getLigne()-1);
+                    nextJeton.setColonne(nextJeton.getColonne()+1);
+                }
+                cpt++;
+            }
+            else{
+                TrouverExtremitehaut = true;
+                nextJeton.setLigne(j.getLigne());
+                nextJeton.setColonne(j.getColonne());
+            }
+        }
+        
+        
+         while(TrouverExtremitebas == false){
+            if(Plateau[nextJeton.getLigne()][nextJeton.getColonne()].getJoueur() == j.getJoueur()){ // jeton actuel        
+                if(nextJeton.getLigne() >= SizeX-1 || nextJeton.getColonne() <= 0){
+                    TrouverExtremitebas = true;
+                }
+                else{
+                    nextJeton.setLigne(nextJeton.getLigne()+1);
+                    nextJeton.setColonne(nextJeton.getColonne()-1);
+                }
+                cpt++;
+            }
+            else{
+                TrouverExtremitebas = true;
+                nextJeton.setLigne(j.getLigne());
+                nextJeton.setColonne(j.getColonne());
+            }
+        }
+
+        if(cpt > 4){
+            System.out.println("VICTOIRE !!! DIAGONALE2");
+            check = true;
+        }
+        
+        return check;
     }
     
     boolean FinPartie(Jeton j){
@@ -193,8 +305,8 @@ public class PlateauJeu extends javax.swing.JPanel implements MouseListener, Mou
         
         end = end || CheckColonne(j);
         end = end || CheckLigne(j);
-//        end = end || CheckDiagonal1(j);
-//        end = end || CheckDiagonal2(j);
+        end = end || CheckDiagonal1(j);
+        end = end || CheckDiagonal2(j);
         
         
         return end;

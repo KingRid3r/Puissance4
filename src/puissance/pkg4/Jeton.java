@@ -50,6 +50,12 @@ public class Jeton extends javax.swing.JPanel{
         this.Colonne = _y;
         this.Joueur = _joueur;
     }
+    
+    public Jeton(Jeton j){
+        this.Ligne = j.getLigne();
+        this.Colonne = j.getColonne();
+        this.Joueur = j.getJoueur();
+    }
 
     /**
      * @return the Ligne
